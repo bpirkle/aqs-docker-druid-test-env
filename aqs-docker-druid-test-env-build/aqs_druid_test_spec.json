@@ -1,0 +1,76 @@
+{
+  "type" : "index_parallel",
+  "spec" : {
+    "type": "index_parallel",
+    "ioConfig" : {
+      "type" : "index_parallel",
+      "inputSource": {
+        "type": "local",
+        "baseDir": "/data",
+        "filter": "aqs_druid_test_data.csv"
+      },
+      "inputFormat": {
+        "type": "csv",
+        "findColumnsFromHeader": true
+      }
+    },
+    "dataSchema" : {
+      "dataSource" : "aqs_test",
+      "granularitySpec": {
+        "type": "uniform",
+        "queryGranularity": "day",
+        "segmentGranularity": "month"
+      },
+      "timestampSpec": {
+        "format" : "yyyy-MM-dd HH:mm:ss.S",
+        "column" : "event_timestamp"
+      },
+      "dimensionsSpec": {
+        "dimensions": [
+            "project",
+            "event_entity",
+            "event_type",
+            "user_text",
+            "user_type",
+            "page_title",
+            "page_namespace",
+            "page_type",
+            "other_tags",
+            "revisions",
+            "text_bytes_diff",
+            "text_bytes_diff_abs"
+        ],
+        "dimensionExclusions": [],
+        "spatialDimensions": []
+      },
+      "metricsSpec" : [
+        {
+          "name" : "events",
+          "type" : "count"
+        },
+        {
+          "name" : "revisions_sum",
+          "type" : "longSum",
+          "fieldName": "revisions"
+        },
+        {
+          "name" : "text_bytes_diff_sum",
+          "type" : "longSum",
+          "fieldName": "text_bytes_diff"
+        },
+        {
+          "name" : "text_bytes_diff_abs_sum",
+          "type" : "longSum",
+          "fieldName": "text_bytes_diff_abs"
+        }
+      ]
+    },
+    "tuningConfig": {
+      "type": "index_parallel",
+      "partitionsSpec": {
+        "type": "dynamic"
+      },
+      "maxNumConcurrentSubTasks": 8
+    }
+  }
+}
