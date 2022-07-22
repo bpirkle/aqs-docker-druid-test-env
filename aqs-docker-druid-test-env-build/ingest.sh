@@ -60,5 +60,10 @@ wait_for_datasource
 echo "Datasource loaded, loading rows"
 wait_for_all_rows
 
-echo "Now wait a little while for the ingestion tasks to finish up"
-sleep 10m
+echo "Now wait a while for the ingestion tasks to finish up"
+secs=$((10 * 60))
+while [ $secs -gt 0 ]; do
+   echo -ne "$secs\033[0K\r"
+   sleep 1
+   : $((secs--))
+done
