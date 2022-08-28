@@ -51,5 +51,5 @@ Test data is currently .csv, but Spark can also generate .json data. Which do we
 
 The injest.sh script waits a hard-coded 10 minutes for ingestion tasks to complete. Is there anything we can do to actually know when everything is done rather than assuming a time? And if not, can we make the countdown prettier?
 
-The ingest.sh script in general doesn't do a lot of error handling. It is only needed at build time, so maybe that's okay. But could/should it do mores? 
+The ingest.sh script in general doesn't do a lot of error handling. It is only needed at build time, so maybe that's okay. But could/should it do more? 
 

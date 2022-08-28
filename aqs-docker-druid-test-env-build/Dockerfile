@@ -25,6 +25,7 @@ RUN apt-get install -y curl
 RUN apt-get install -y netcat
 
 # Remove unneeded files
+# TBD: WHY IS THIS ABOVE SETTING THE DRUID_DIR ENV VAR???? SHOULD WE MOVE IT BELOW?
 RUN rm -rf $DRUID_DIR/extensions
 RUN rm -rf $DRUID_DIR/hadoop-dependencies
 RUN rm -rf $DRUID_DIR/quickstart
