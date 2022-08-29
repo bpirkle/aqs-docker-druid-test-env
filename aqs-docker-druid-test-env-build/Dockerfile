@@ -7,6 +7,7 @@ WORKDIR /druid
 
 ENV DRUID_VERSION 0.20.2
 ENV DRUID_ARCHIVE apache-druid-$DRUID_VERSION-bin.tar.gz
+ENV DRUID_DIR /druid/apache-druid-${DRUID_VERSION}
 
 # RUN apk add wget
 RUN apt-get update
@@ -25,7 +26,6 @@ RUN apt-get install -y curl
 RUN apt-get install -y netcat
 
 # Remove unneeded files
-# TBD: WHY IS THIS ABOVE SETTING THE DRUID_DIR ENV VAR???? SHOULD WE MOVE IT BELOW?
 RUN rm -rf $DRUID_DIR/extensions
 RUN rm -rf $DRUID_DIR/hadoop-dependencies
 RUN rm -rf $DRUID_DIR/quickstart
@@ -37,7 +37,6 @@ RUN addgroup --system druid
 RUN adduser --system druid --ingroup druid
 
 # Change owner of /druid to unprivileged user
-ENV DRUID_DIR /druid/apache-druid-${DRUID_VERSION}
 RUN chown -R druid $DRUID_DIR
 
 RUN mkdir /data

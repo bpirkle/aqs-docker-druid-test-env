@@ -27,6 +27,7 @@ using an obnoxious amount of memory. Better to do it during build so we can use 
 ```bash
 docker run -p 8081:8081 -p 8082:8082 -p 8888:8888 -it bpirkle/aqs-docker-druid-test-env
 ```
+You can then hit http://localhost:8888/ for the Druid web ui
 
 #### Env Vars
 
