@@ -24,6 +24,7 @@ RUN rm $DRUID_ARCHIVE
 RUN apt-get install -y bash
 RUN apt-get install -y curl
 RUN apt-get install -y netcat
+RUN apt-get install -y sed
 
 # Remove unneeded files
 RUN rm -rf $DRUID_DIR/extensions

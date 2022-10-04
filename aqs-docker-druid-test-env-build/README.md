@@ -31,7 +31,7 @@ You can then hit http://localhost:8888/ for the Druid web ui
 
 #### Env Vars
 
-For running Metabase tests you shouldn't need to change any of these.
+For running tests you shouldn't need to change any of these.
 
 *  `CLUSTER_SIZE` -- Druid config to use. Currently one of `nano-quickstart`, `micro-quickstart`, `small`, `medium`, `large`, or `xlarge`. Default: `nano-quickstart`
 *  `START_MIDDLE_MANAGER` -- whether to start the middle manager process. Default `false`, because the middle manager is only needed for ingesting rows. Set to `true` if you plan to ingest more data.

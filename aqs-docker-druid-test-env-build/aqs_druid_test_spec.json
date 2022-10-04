@@ -22,7 +22,7 @@
         "segmentGranularity": "month"
       },
       "timestampSpec": {
-        "format" : "yyyy-MM-dd HH:mm:ss.S",
+        "format" : "millis",
         "column" : "event_timestamp"
       },
       "dimensionsSpec": {
