@@ -1,7 +1,6 @@
-#FROM adoptopenjdk/openjdk11:alpine-jre
-FROM adoptopenjdk/openjdk11
+FROM adoptopenjdk/openjdk11:debian-jre
 
-MAINTAINER Cam Saul <cam@metabase.com>
+MAINTAINER Bill Pirkle <bpirkle@wikimedia.org>
 
 WORKDIR /druid
 
@@ -9,39 +8,22 @@ ENV DRUID_VERSION 0.20.2
 ENV DRUID_ARCHIVE apache-druid-$DRUID_VERSION-bin.tar.gz
 ENV DRUID_DIR /druid/apache-druid-${DRUID_VERSION}
 
-# RUN apk add wget
-RUN apt-get update
-RUN apt-get install -y wget
-
-# Download Druid
-RUN wget --output-document $DRUID_ARCHIVE https://mirrors.ocf.berkeley.edu/apache/druid/$DRUID_VERSION/$DRUID_ARCHIVE
-RUN tar -xzf $DRUID_ARCHIVE
-RUN rm $DRUID_ARCHIVE
-
-# Install deps
-# RUN apk add bash
-# RUN apk add curl
-RUN apt-get install -y bash
-RUN apt-get install -y curl
-RUN apt-get install -y netcat
-RUN apt-get install -y sed
-
-# Remove unneeded files
-RUN rm -rf $DRUID_DIR/extensions
-RUN rm -rf $DRUID_DIR/hadoop-dependencies
-RUN rm -rf $DRUID_DIR/quickstart
-
-# Create new unprivileged user & switch to it
-# RUN addgroup -S druid
-# RUN adduser -S druid -G druid
-RUN addgroup --system druid
-RUN adduser --system druid --ingroup druid
-
-# Change owner of /druid to unprivileged user
-RUN chown -R druid $DRUID_DIR
-
-RUN mkdir /data
-RUN chown -R druid /data
+# Add various things we need, download druid, remove unnecessary files, and do other setup
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && apt-get install -y --no-install-recommends netcat \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl --output $DRUID_ARCHIVE https://mirrors.ocf.berkeley.edu/apache/druid/$DRUID_VERSION/$DRUID_ARCHIVE \
+    && tar -xzf $DRUID_ARCHIVE \
+    && rm $DRUID_ARCHIVE \
+    && rm -rf $DRUID_DIR/extensions \
+    && rm -rf $DRUID_DIR/hadoop-dependencies \
+    && rm -rf $DRUID_DIR/quickstart \
+    && addgroup --system druid \
+    && adduser --system druid --ingroup druid \
+    && chown -R druid $DRUID_DIR \
+    && mkdir /data \
+    && chown -R druid /data
 
 # Switch to Druid user
 USER druid
@@ -52,9 +34,6 @@ COPY ["./aqs_druid_test_data.csv", "/data/aqs_druid_test_data.csv"]
 COPY ["./aqs_druid_test_spec.json", "/data/aqs_druid_test_spec.json"]
 COPY ["./ingest.sh", "$DRUID_DIR/ingest.sh"]
 
-# Create temp dir
-RUN mkdir -p $DRUID_DIR/var/tmp
-
 ENV CLUSTER_SIZE micro-quickstart
 ENV LOG4J_PROPERTIES_FILE ${DRUID_DIR}/log4j2.properties
 ENV ENABLE_JAVASCRIPT true
@@ -62,7 +41,8 @@ ENV ENABLE_JAVASCRIPT true
 ENV START_MIDDLE_MANAGER true
 
 # Ingest the rows.
-RUN $DRUID_DIR/ingest.sh
+RUN mkdir -p $DRUID_DIR/var/tmp \
+    && $DRUID_DIR/ingest.sh
 
 ENV CLUSTER_SIZE nano-quickstart
 ENV START_MIDDLE_MANAGER false
