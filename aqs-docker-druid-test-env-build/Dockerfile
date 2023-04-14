@@ -13,7 +13,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends curl \
     && apt-get install -y --no-install-recommends netcat \
     && rm -rf /var/lib/apt/lists/* \
-    && curl --output $DRUID_ARCHIVE https://mirrors.ocf.berkeley.edu/apache/druid/$DRUID_VERSION/$DRUID_ARCHIVE \
+    && curl --output $DRUID_ARCHIVE https://archive.apache.org/dist/druid/$DRUID_VERSION/$DRUID_ARCHIVE \
     && tar -xzf $DRUID_ARCHIVE \
     && rm $DRUID_ARCHIVE \
     && rm -rf $DRUID_DIR/extensions \
