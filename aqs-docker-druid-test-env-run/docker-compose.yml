@@ -4,3 +4,4 @@ services:
     image: bpirkle/aqs-docker-druid-test-env:latest
     ports:
       - "8888:8888"
+      - "8082:8082"

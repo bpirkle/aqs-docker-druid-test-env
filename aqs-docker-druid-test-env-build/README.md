@@ -46,7 +46,7 @@ docker push bpirkle/aqs-docker-druid-test-env
 
 ### TO-DOs
 
-The naming of all this is speculative. Should we include the Druid version number in the name? Are the various other names to long/short/unclear?
+The naming of all this is speculative. Should we include the Druid version number in the name? Are the various other names too long/short/unclear?
 
 Test data is currently .csv, but Spark can also generate .json data. Which do we prefer for this?
 
