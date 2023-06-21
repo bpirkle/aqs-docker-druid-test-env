@@ -30,8 +30,8 @@ USER druid
 
 COPY ["./run.sh", "$DRUID_DIR/run.sh"]
 COPY ["./log4j2.properties", "$DRUID_DIR/log4j2.properties"]
-COPY ["./aqs_druid_test_data.csv", "/data/aqs_druid_test_data.csv"]
-COPY ["./aqs_druid_test_spec.json", "/data/aqs_druid_test_spec.json"]
+COPY ["./test-data.csv", "/data/test-data.csv"]
+COPY ["./test-data_spec.json", "/data/test-data_spec.json"]
 COPY ["./ingest.sh", "$DRUID_DIR/ingest.sh"]
 
 ENV CLUSTER_SIZE micro-quickstart

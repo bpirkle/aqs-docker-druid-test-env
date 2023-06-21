@@ -7,7 +7,7 @@
       "inputSource": {
         "type": "local",
         "baseDir": "/data",
-        "filter": "aqs_druid_test_data.csv"
+        "filter": "test-data.csv"
       },
       "inputFormat": {
         "type": "csv",
@@ -22,8 +22,8 @@
         "segmentGranularity": "month"
       },
       "timestampSpec": {
-        "format" : "millis",
-        "column" : "event_timestamp"
+        "format" : "auto",
+        "column" : "__time"
       },
       "dimensionsSpec": {
         "dimensions": [
