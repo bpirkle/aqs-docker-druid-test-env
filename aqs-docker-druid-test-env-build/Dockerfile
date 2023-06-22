@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk11:debian-jre
 
-MAINTAINER Bill Pirkle <bpirkle@wikimedia.org>
+LABEL authors="Bill Pirkle <bpirkle@wikimedia.org>"
 
 WORKDIR /druid
 
