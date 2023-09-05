@@ -7,7 +7,7 @@
       "inputSource": {
         "type": "local",
         "baseDir": "/data",
-        "filter": "test-data.csv"
+        "filter": "test-data.csv.gz"
       },
       "inputFormat": {
         "type": "csv",
@@ -23,7 +23,7 @@
       },
       "timestampSpec": {
         "format" : "auto",
-        "column" : "__time"
+        "column" : "event_timestamp"
       },
       "dimensionsSpec": {
         "dimensions": [
