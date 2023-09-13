@@ -16,7 +16,13 @@ SERVICE ?= druid
 
 
 startup:
-	docker-compose up --abort-on-container-exit
+	docker-compose -f docker-compose.yml up -d
 
 shutdown:
-	docker-compose down --remove-orphans
+	docker-compose -f docker-compose.yml down
+
+startup-qa:
+	docker-compose -f docker-compose-qa.yml up -d
+
+shutdown-qa:
+	docker-compose -f docker-compose-qa.yml down

@@ -1,7 +1,9 @@
 version: "3.4"
+name: aqs-docker-druid-test-env
 services:
   druid:
     image: bpirkle/aqs-docker-druid-test-env:latest
+    container_name: druid
     ports:
       - "8888:8888"
       - "8082:8082"

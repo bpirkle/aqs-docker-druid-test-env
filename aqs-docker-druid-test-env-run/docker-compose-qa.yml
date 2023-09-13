@@ -1,0 +1,32 @@
+version: "3.4"
+name: aqs-docker-druid-test-env-qa
+services:
+  druid:
+    image: bpirkle/aqs-docker-druid-test-env:latest
+    container_name: druid-qa
+    ports:
+      - "8888:8888"
+      - "8082:8082"
+    networks:
+      - network1
+    healthcheck:
+      interval: 10s
+      retries: 9
+      timeout: 90s
+      test:
+        - CMD-SHELL
+        - nc -z 127.0.0.1 8888 
+  editor-analytics:
+    image: editor-analytics
+    container_name: editor-analytics-qa
+    ports:
+      - "8094:8080"
+    networks:
+      - network1
+    depends_on:
+      druid:
+        condition: service_healthy
+
+networks:
+  network1:
+    name: druid-qa-test
