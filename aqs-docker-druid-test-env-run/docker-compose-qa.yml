@@ -26,6 +26,16 @@ services:
     depends_on:
       druid:
         condition: service_healthy
+  edit-analytics:
+    image: edit-analytics
+    container_name: edit-analytics-qa
+    ports:
+      - "8095:8080"
+    networks:
+      - network1
+    depends_on:
+      druid:
+        condition: service_healthy
 
 networks:
   network1:
